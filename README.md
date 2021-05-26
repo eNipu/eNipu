@@ -1,4 +1,4 @@
-<h1 align="center">Hi 👋, I'm eNipu</h1>
+<h1 align="center">Hi 👋, I'm Nipu</h1>
 <h3 align="center">Learner Dreamer Storyteller. Passionate about Cryptography and Privacy Preserving AI</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=enipu&label=Profile%20views&color=0e75b6&style=flat" alt="enipu" /> </p>
