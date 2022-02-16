@@ -1,7 +1,7 @@
 <h1 align="center">Hi, I'm Md. Al-Amin Khandaker</h1>
 <h3 align="center">Passionate about Cryptography, Homomorphic-Encryption and Privacy Preserving Machine Learning</h3>
-
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=enipu&label=Profile%20views&color=0e75b6&style=flat" alt="enipu" /> </p>
+<!-- 
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=enipu&label=Profile%20views&color=0e75b6&style=flat" alt="enipu" /> </p> -->
 
 - 🔭 I’m currently working on **secure computing on RDMS**
 
