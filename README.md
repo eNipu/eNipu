@@ -1,4 +1,4 @@
-<h1 align="center">Md. Al-Amin Khandaker</h1>
+<h1 align="center">Hi, my name is Md. Al-Amin Khandaker</h1>
 <h3 align="center">I'm passionate about cryptography, homomorphic-encryption and privacy preserving machine learning</h3>
 <!-- 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=enipu&label=Profile%20views&color=0e75b6&style=flat" alt="enipu" /> </p> -->
