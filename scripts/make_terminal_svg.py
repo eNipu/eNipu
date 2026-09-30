@@ -12,7 +12,9 @@ from xml.sax.saxutils import escape
 
 OUT = Path(__file__).resolve().parent.parent / "terminal.svg"
 FONT = "'JetBrains Mono','Fira Code','DejaVu Sans Mono','Courier New',monospace"
-WIDTH = 860
+# Keep HEIGHT / WIDTH small so the whole card fits in one browser window.
+WIDTH = 900
+BAR = 34
 LEFT = 34
 # Width of one monospace character at 13px, with some slack for fallback fonts.
 CHAR_13 = 8.4
@@ -26,9 +28,14 @@ CYAN, BLUE, PURPLE, PEACH = "#89dceb", "#89b4fa", "#cba6f7", "#fab387"
 # ---------------------------------------------------------------- CONTENT
 NAME = "Md Al-Amin Khandaker"
 TITLE = [(CYAN, True, "Applied Cryptographer"), (TEXT, False, "   ·   Security Engineer")]
-ORG = [
-    (PEACH, False, "ITK Engineering (Bosch Group)"),
-    (DIM, False, "   ·   Berlin, DE   ·   industry since 2019"),
+SUB = [(DIM, False, "Berlin, DE   ·   industry since 2019")]
+OPEN_TO = [
+    (GREEN, True, "open to"),
+    (TEXT, False, "   Applied cryptography"),
+    (DIM, False, "  ·  "),
+    (TEXT, False, "ZK / protocol security"),
+    (DIM, False, "  ·  "),
+    (TEXT, False, "Security engineering"),
 ]
 HIGHLIGHTS = [
     (GREEN, [
@@ -58,13 +65,6 @@ SKILLS = [
     ("security", PEACH, ["Threat modeling", "Code review", "ISO/SAE 21434", "EU CRA", "SEI CERT", "Mbed TLS"]),
     ("code", GREEN, ["C", "C++", "Rust", "Python"]),
 ]
-OPEN_TO = [
-    (TEXT, False, "Applied cryptography"),
-    (DIM, False, "  ·  "),
-    (TEXT, False, "ZK / protocol security"),
-    (DIM, False, "  ·  "),
-    (TEXT, False, "Security engineering"),
-]
 # ------------------------------------------------------------------------
 
 
@@ -92,29 +92,29 @@ def prompt(y, cmd):
 
 def main():
     out = []
-    y = 92
+    y = BAR + 28
     out += prompt(y, "whoami")
-    y += 40
-    out.append(text(LEFT, y, 26, [(YELLOW, True, NAME)]))
-    y += 28
-    out.append(text(LEFT, y, 15, TITLE))
+    y += 32
+    out.append(text(LEFT, y, 24, [(YELLOW, True, NAME)]))
     y += 24
-    out.append(text(LEFT, y, 14, ORG))
+    out.append(text(LEFT, y, 15, TITLE))
+    y += 22
+    out.append(text(LEFT, y, 13, SUB))
+    y += 24
+    out.append(text(LEFT, y, 14, OPEN_TO))
 
-    y += 52
+    y += 36
     out += prompt(y, "cat highlights.txt")
-    y += 5
     for marker, spans in HIGHLIGHTS:
-        y += 27
+        y += 24
         out.append(text(LEFT, y, 14, [(marker, True, "▸")]))
         out.append(text(LEFT + 20, y, 14, spans))
 
-    y += 55
+    y += 36
     out += prompt(y, "ls skills/")
-    y += 6
     label_w = max(len(label) for label, _, _ in SKILLS) * CHAR_13 + 16
     for label, color, items in SKILLS:
-        y += 34
+        y += 30
         out.append(text(LEFT, y, 13, [(DIM, False, label)]))
         x = LEFT + label_w
         for item in items:
@@ -128,30 +128,25 @@ def main():
         if x > WIDTH - LEFT:
             raise SystemExit(f"skills row '{label}' is too wide ({num(x)}px)")
 
-    y += 56
-    out += prompt(y, "cat open_to.txt")
-    y += 30
-    out.append(text(LEFT, y, 14, OPEN_TO))
-
-    y += 46
+    y += 36
     out.append(text(LEFT, y, 14, [(GREEN, True, "$")]))
     out.append(
         f'<rect x="{LEFT + 18}" y="{num(y - 13)}" width="9" height="17" rx="1" fill="{TEXT}">'
         '<animate attributeName="opacity" values="1;1;0;0" dur="1.1s" repeatCount="indefinite"/></rect>'
     )
-    height = y + 28
+    height = y + 20
 
     head = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 {WIDTH} {height}" '
         f'font-family="{FONT}" role="img" aria-labelledby="title">',
         f'<title id="title">{escape(NAME)}: applied cryptographer and security engineer</title>',
         f'<rect x="0" y="0" width="{WIDTH}" height="{height}" rx="12" fill="{BASE}"/>',
-        f'<rect x="0" y="0" width="{WIDTH}" height="40" rx="12" fill="{MANTLE}"/>',
-        f'<rect x="0" y="20" width="{WIDTH}" height="20" fill="{MANTLE}"/>',
-        f'<circle cx="22" cy="20" r="6.5" fill="{RED}"/>',
-        f'<circle cx="44" cy="20" r="6.5" fill="{YELLOW}"/>',
-        f'<circle cx="66" cy="20" r="6.5" fill="{GREEN}"/>',
-        text(WIDTH / 2, 25, 13, [(DIM, False, "eNipu@github: ~/profile")], anchor="middle"),
+        f'<rect x="0" y="0" width="{WIDTH}" height="{BAR}" rx="12" fill="{MANTLE}"/>',
+        f'<rect x="0" y="{BAR // 2}" width="{WIDTH}" height="{BAR - BAR // 2}" fill="{MANTLE}"/>',
+        f'<circle cx="22" cy="{BAR / 2}" r="6.5" fill="{RED}"/>',
+        f'<circle cx="44" cy="{BAR / 2}" r="6.5" fill="{YELLOW}"/>',
+        f'<circle cx="66" cy="{BAR / 2}" r="6.5" fill="{GREEN}"/>',
+        text(WIDTH / 2, BAR / 2 + 4.5, 13, [(DIM, False, "eNipu@github: ~/profile")], anchor="middle"),
     ]
     OUT.write_text("\n".join(head + out + ["</svg>"]) + "\n", encoding="utf-8")
     print(f"wrote {OUT} ({WIDTH}x{height})")
