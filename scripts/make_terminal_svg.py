@@ -67,7 +67,7 @@ HIGHLIGHTS = [
         (BLUE, B, "pairing-based cryptography"),
         (TEXT, N, ", 27 papers"),
         (FAINT, N, "  ·  "),
-        (MUTED, N, "INDOCRYPT, ICISC"),
+        (TEXT, N, "114-bit ECDLP record"),
     ]),
     (YELLOW, [
         (TEXT, N, "Author of "),
